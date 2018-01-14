@@ -3,12 +3,15 @@ import { SubmissionError } from 'redux-form';
 import { push } from 'react-router-redux';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 
+
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
 
 export const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
   user
 });
+
 
 const handleError = ({ response }) => {
   let errors = {};
@@ -29,7 +32,7 @@ const handleError = ({ response }) => {
           break;
         }
       case 401:
-        dispatch(logout()); //too many redirects?
+        dispatch(logout());
         return;
       default:
         errors['_error'] = 'Error';
@@ -40,6 +43,7 @@ const handleError = ({ response }) => {
   throw new SubmissionError(errors);
 };
 
+
 export const signin = data => dispatch =>
   axios.post('/api/token-auth/', data)
     .then(response => {
@@ -49,6 +53,7 @@ export const signin = data => dispatch =>
       return dispatch(getUserData());
     })
     .catch(handleError);
+
 
 export const signup = data => dispatch => {
   if (!data['first_name']) {
@@ -65,6 +70,7 @@ export const signup = data => dispatch => {
     .catch(handleError);
 };
 
+
 const getUserData = () => dispatch =>
   axios.get('/api/users/current/')
     .then(({ data }) => {
@@ -72,6 +78,7 @@ const getUserData = () => dispatch =>
       localStorage.setItem('user', JSON.stringify(data));
       dispatch(push('/'));
     });
+
 
 export const logout = () => dispatch =>
   axios('/api/auth/logout/')

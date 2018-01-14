@@ -58,7 +58,6 @@
 /* project-item */
 
 .project-item {
-  cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
   background: #eee;
@@ -79,6 +78,7 @@
 }
 
 .project-item__close {
+  cursor: pointer;
   position: absolute;
   right: 0;
   top: 0;

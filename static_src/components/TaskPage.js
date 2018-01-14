@@ -1,30 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TaskFilter from './TaskFilter';
+import { push } from 'react-router-redux';
 import TaskList from './TaskList';
 import '../styles/task.css';
 
-class TaskPage extends React.Component {
-  render() {
-    console.log(this.props.router);
-    return (
-      <div className="task-page">
-        <div className="task-page__header">
-          <h2>Tasks</h2>
-          <TaskFilter />
-        </div>
-        <button className="task-page__add-button">Add new task</button>
-        <br/>
-        <div className="task-page__body">
-          <TaskList tasks={[{},{},{},{},{},{},{},{}]}/>
-        </div>
-      </div>
-    );
-  }
-}
+const TaskPage = ({ dispatch }) => (
+  <div className="task-page">
 
-const mapStateToProps = state => ({
-  router: state.router
-});
+    <div className="task-page__header">
+      <h2>Tasks</h2>
+    </div>
 
-export default connect(mapStateToProps)(TaskPage);
+    <button
+      className="task-page__add-button"
+      onClick={() => dispatch(push('/tasks/new'))}
+    >
+      Add new task
+    </button>
+
+    <div className="task-page__body">
+      <TaskList />
+    </div>
+
+  </div>
+);
+
+export default connect()(TaskPage);

@@ -2,11 +2,7 @@
   padding-top: 6em;
 }
 
-.loader {
-  font-size: 22px;
-}
-
-.loader:after {
-  content: 'Loading...';
-  display: block;
+.helper {
+  text-align: center;
+  padding-top: 30px;
 }

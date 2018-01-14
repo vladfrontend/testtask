@@ -1,5 +1,5 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, reset } from 'redux-form';
 import { addProject } from '../actions/project';
 
 const ProjectForm = ({ handleSubmit, submitting, error }) => (
@@ -22,8 +22,12 @@ const ProjectForm = ({ handleSubmit, submitting, error }) => (
   </div>
 );
 
+const afterSubmit = (result, dispatch) =>
+  dispatch(reset('ProjectForm'));
+
 export default reduxForm({
   form: 'ProjectForm',
   onSubmit: (data, dispatch) =>
-    dispatch(addProject(data))
+    dispatch(addProject(data)),
+  onSubmitSuccess: afterSubmit
 })(ProjectForm);

@@ -1,13 +1,14 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
-import middlewares from '../middlewares';
+
+import { apiMiddleware } from 'redux-api-middleware';
+import thunk from 'redux-thunk';
+
+const middlewares = [thunk, apiMiddleware];
 
 export default (additionalMiddlewares = []) => {
   return createStore(
     rootReducer,
-    compose(
-      applyMiddleware(...additionalMiddlewares, ...middlewares),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+    applyMiddleware(...additionalMiddlewares, ...middlewares)
   );
 };

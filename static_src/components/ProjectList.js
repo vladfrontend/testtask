@@ -15,7 +15,7 @@ class ProjectList extends React.Component {
   }
 
   render() {
-    const { items:projects, isLoading, deleteProject } = this.props;
+    const { projects, isLoading, deleteProject } = this.props;
     return (
       <ul className="project-list">
         {projects.map(project => 
@@ -25,14 +25,18 @@ class ProjectList extends React.Component {
             deleteProject={() => deleteProject(project.id)}
           />
         )}
-        {projects.length === 0 && isLoading && <h2>Loading...</h2>}
-        {projects.length === 0 && !isLoading && <h2>No projects</h2>}
+        {projects.length === 0 && isLoading && <h2 className="helper">Loading...</h2>}
+        {projects.length === 0 && !isLoading && <h2 className="helper">No projects</h2>}
       </ul>
     );
   }
 }
 
-const mapStateToProps = state => state.projects;
+const mapStateToProps = state => ({
+  projects: state.projects.items,
+  isLoading: state.projects.isLoading
+});
+
 const mapDispatchToProps = {
   fetchProjects,
   deleteProject
