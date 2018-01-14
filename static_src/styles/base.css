@@ -1,3 +1,12 @@
 .main-container {
   padding-top: 6em;
 }
+
+.loader {
+  font-size: 22px;
+}
+
+.loader:after {
+  content: 'Loading...';
+  display: block;
+}

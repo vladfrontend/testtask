@@ -1,10 +1,44 @@
 import React from 'react';
-import ProjectListItem from './ProjectListItem';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import ProjectItem from './ProjectItem';
+import { fetchProjects, deleteProject } from '../actions/project';
 
-export default ({ projects = [] }) => (
-  <ul className="project-list">
-    {projects.map(project => 
-      <ProjectListItem title={project.name} key={project.id} />
-    )}
-  </ul>
-);
+class ProjectList extends React.Component {
+  static propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    items: PropTypes.array
+  }
+
+  componentDidMount() {
+    this.props.fetchProjects();
+  }
+
+  render() {
+    const { items:projects, isLoading, deleteProject } = this.props;
+    return (
+      <ul className="project-list">
+        {projects.map(project => 
+          <ProjectItem
+            project={project}
+            key={project.id}
+            deleteProject={() => deleteProject(project.id)}
+          />
+        )}
+        {projects.length === 0 && isLoading && <h2>Loading...</h2>}
+        {projects.length === 0 && !isLoading && <h2>No projects</h2>}
+      </ul>
+    );
+  }
+}
+
+const mapStateToProps = state => state.projects;
+const mapDispatchToProps = {
+  fetchProjects,
+  deleteProject
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProjectList);

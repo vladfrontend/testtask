@@ -1,12 +1,10 @@
 import React from 'react';
-import TaskCard from './TaskCard';
+import TaskItem from './TaskItem';
 
 export default ({ tasks = [] }) => (
-  <div className="task-list">
-    <ul>
-      {tasks.map((task, i) =>
-        <TaskCard task={task} key={i} />
-      )}
-    </ul>
-  </div>
+  <ul className="task-list">
+    {tasks.map((task, i) =>
+      <TaskItem task={task} key={i} />
+    )}
+  </ul>
 );
