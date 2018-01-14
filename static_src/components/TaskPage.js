@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskFilter from './TaskFilter';
 import TaskList from './TaskList';
-import '../../styles/task.css';
+import '../styles/task.css';
 
 export default () => (
   <div className="task-page">

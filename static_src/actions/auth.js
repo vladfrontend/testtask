@@ -11,19 +11,33 @@ export const setCurrentUser = user => ({
 });
 
 const handleError = ({ response }) => {
-  if (response.status == 400 && typeof response.data === 'object') {
-    const errors = Object.keys(response.data)
-      .reduce((errors, key) => {
-        const value = response.data[key][0];
-        if (key === 'non_field_errors') {
-          errors['_error'] = value;
-        } else {
-          errors[key] = value;
+  let errors = {};
+  if (response) {
+    switch (response.status) {
+      case 400:
+        if (typeof response.data === 'object') {
+          errors = Object.keys(response.data)
+            .reduce((errors, key) => {
+              const value = response.data[key][0];
+              if (key === 'non_field_errors') {
+                errors['_error'] = value;
+              } else {
+                errors[key] = value;
+              }
+              return errors;
+            }, {});
+          break;
         }
-        return errors;
-      }, {});
-    throw new SubmissionError(errors);
+      case 401:
+        dispatch(logout()); //too many redirects?
+        return;
+      default:
+        errors['_error'] = 'Error';
+    }
+  } else {
+    errors['_error'] = 'Network Error';
   }
+  throw new SubmissionError(errors);
 };
 
 export const signin = data => dispatch =>
@@ -67,12 +81,6 @@ export const logout = () => dispatch =>
       dispatch(push('/'));
     });
 
-export const register = values => dispatch =>
-  axios.post('/api/users/', values)
-    .then(() => {
-      dispatch(push('/signin'));
-    })
-    .catch(handleError);
 
 export const extractUserData = () => dispatch => {
   const stringifiedData = localStorage.getItem('user');

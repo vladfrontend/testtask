@@ -1,7 +1,7 @@
 import React from 'react';
 import ProjectForm from './ProjectForm';
 import ProjectList from './ProjectList';
-import '../../styles/project.css';
+import '../styles/project.css';
 
 export default () => (
   <div className="project-page">

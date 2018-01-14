@@ -15,7 +15,7 @@ const SigninForm = ({ handleSubmit, submitting, error }) => (
     </Header>
 
     <Segment attached>
-      <Form onSubmit={handleSubmit} error={error}>
+      <Form onSubmit={handleSubmit} error={!!error}>
         <Field
           name="username"
           type="text"

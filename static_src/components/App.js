@@ -5,7 +5,7 @@ import { Container } from 'semantic-ui-react';
 export default ({ children }) => (
   <div>
     <NavBar />
-    <Container style={{ marginTop: '6em' }}>
+    <Container className="main-container">
       {children}
     </Container>
   </div>
