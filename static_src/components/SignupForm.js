@@ -21,40 +21,30 @@ const SigninForm = ({ handleSubmit, submitting, error }) => (
           type="text"
           component={FormField}
           label="Username"
-          hideLabel={true}
         />
         <Field
           name="email"
           type="email"
           component={FormField}
           label="Email"
-          hideLabel={true}
         />
         <Field
           name="first_name"
           type="text"
           component={FormField}
           label="Name"
-          hideLabel={true}
         />
         <Field
           name="last_name"
           type="text"
           component={FormField}
           label="Last Name"
-          hideLabel={true}
-        />
-        <Field
-          name="avatar"
-          type="file"
-          component="input"
         />
         <Field
           name="password"
           type="password"
           component={FormField}
           label="Password"
-          hideLabel={true}
         />
         <Message
           error

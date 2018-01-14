@@ -26,8 +26,8 @@ const handleError = ({ response }) => {
   }
 };
 
-export const signin = values => dispatch =>
-  axios.post('/api/token-auth/', values)
+export const signin = data => dispatch =>
+  axios.post('/api/token-auth/', data)
     .then(response => {
       const { token } = response.data;
       setAuthorizationToken(token);
@@ -37,30 +37,14 @@ export const signin = values => dispatch =>
     .catch(handleError);
 
 export const signup = data => dispatch => {
-  let formData = Object.keys(data).reduce(
-    (formData, key) => {
-      if (key === 'avatar') {
-        formData.append(key, data[key][0]);
-      } else {
-        formData.append(key, data[key]);
-      }
-      return formData
-    },
-    new FormData
-  );
-
   if (!data['first_name']) {
-    formData.append('first_name', '');
+    data['first_name'] = '';
   }
   if (!data['last_name']) {
-    formData.append('last_name', '');
+    data['last_name'] = '';
   }
 
-  const config = {
-    headers: { 'content-type': 'multipart/form-data' }
-  };
-
-  return axios.post('/api/users/', formData, config)
+  return axios.post('/api/users/', data)
     .then(response => { 
       dispatch(push('/'));
     })
