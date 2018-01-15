@@ -118,7 +118,7 @@ class TaskEditPage extends Component {
     return (
       <div className="task-edit-page">
         <h2>{this._id ? "Update task" : "Create new task"}</h2>
-        <p>Please fill out all the fields</p>
+        <p className="help-block">Please fill out all the fields</p>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input onChange={this.handleChange} defaultValue={this.state.text} fluid label='Title' placeholder='Title' name="text" />
           <Form.TextArea onChange={this.handleChange} defaultValue={this.state.description} label='Description' placeholder='Description' name="description" />
