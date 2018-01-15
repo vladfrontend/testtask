@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { fetchOneTask, deleteTask } from '../actions/task';
 import { push } from 'react-router-redux';
 
+const statusToText = code => [null, 'Новый', 'В работе', 'Сделан'][code];
+
 class TaskInfoPage extends React.Component {
   constructor(props) {
     super(props);
@@ -14,14 +16,14 @@ class TaskInfoPage extends React.Component {
     };
   }
 
-  setTask = task => {
+  setTaskToState = task => {
     this.setState({
       isLoading: false,
       task
     });
   }
 
-  setError = () => {
+  setErrorToState = () => {
     this.setState({
       isLoading: false,
       isError: true
@@ -46,10 +48,10 @@ class TaskInfoPage extends React.Component {
 
     if (!task) {
       this.props.fetchOneTask(id)
-        .then(this.setTask)
-        .catch(this.setError);
+        .then(this.setTaskToState)
+        .catch(this.setErrorToState);
     } else {
-      this.setTask(task);
+      this.setTaskToState(task);
     }
   }
 
@@ -84,7 +86,7 @@ class TaskInfoPage extends React.Component {
           </Table.Row>
           <Table.Row>
             <Table.Cell>Status</Table.Cell>
-            <Table.Cell>{task.status}</Table.Cell>
+            <Table.Cell>{statusToText(task.status)}</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>

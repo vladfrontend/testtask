@@ -32,6 +32,11 @@ const items = (state = [], action) => {
     case TASK_DELETE:
       return state.filter(task =>
         action.id !== task.id);
+    case TASK_UPDATE:
+      return state.map(task =>
+        action.payload.id === task.id ?
+        action.payload : task
+      );
     default:
       return state;
   }

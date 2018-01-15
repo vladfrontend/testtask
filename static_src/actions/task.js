@@ -38,8 +38,8 @@ export const addTask = data => dispatch =>
       })
     );
 
-export const updateTask = data => dispatch =>
-  axios.update('/api/tasks/', data).then(({ data }) =>
+export const updateTask = (data, id) => dispatch =>
+  axios.put(`/api/tasks/${id}/`, data).then(({ data }) =>
       dispatch({
         type: TASK_UPDATE,
         payload: data
