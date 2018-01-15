@@ -118,10 +118,11 @@ class TaskEditPage extends Component {
     return (
       <div className="task-edit-page">
         <h2>{this._id ? "Update task" : "Create new task"}</h2>
+        <p>Please fill out all the fields</p>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input onChange={this.handleChange} defaultValue={this.state.text} fluid label='Title' placeholder='Title' name="text" />
           <Form.TextArea onChange={this.handleChange} defaultValue={this.state.description} label='Description' placeholder='Description' name="description" />
-          <Form.Select onChange={this.handleChange} defaultValue={this.state['project_id']} fluid label='Project' name="project_id" options={projects} placeholder='Project Id' />
+          <Form.Select onChange={this.handleChange} fluid label='Project' name="project_id" options={projects} placeholder='Project Id' />
           <Form.Select onChange={this.handleChange} defaultValue={this.state.status} fluid label='Status' name="status" options={status} placeholder='Status' />
           <Form.Button primary>Submit</Form.Button>
         </Form>
